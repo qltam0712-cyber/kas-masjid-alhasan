@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Keuangan Masjid</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f5f7f8;
+        }
+
+        h1 {
+            color: rgb(34, 34, 97);
+            margin: 0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: darkgreen;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #e8f5e9;
+        }
+
+        h2 {
+            margin-top: 25px;
+            color: #222;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        #dashboard {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .pemasukan {
+            border-top: 5px solid green;
+        }
+
+        .pengeluaran {
+            border-top: 5px solid red;
+        }
+
+        .saldo {
+            border-top: 5px solid goldenrod;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .print-header {
+            display: none;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #areaLaporan, #areaLaporan * {
+                visibility: visible;
+            }
+
+            #areaLaporan {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .print-header {
+                display: flex;
+            }
+
+            button,
+            #filterJenis,
+            #labelFilter,
+            .kolom-aksi {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER LAYAR -->
+    <div class="header">
+        <img src="logoalhasan.png" width="120">
+        <div>
+            <h1>Laporan Keuangan Masjid Al Hasan</h1>
+            <p>Masjid Al-Hasan - Sistem Kas Digital</p>
+        </div>
+    </div>
+
+    <label>Tanggal Pemasukan / Pengeluaran</label>
+    <input type="date" id="tanggal">
+
+    <br><br>
+
+    <label>Jumlah Uang</label>
+    <input type="number" id="jumlah">
+
+    <br><br>
+
+    <label>Jenis Transaksi</label>
+    <select id="jenis">
+        <option>Pemasukan</option>
+        <option>Pengeluaran</option>
+        <option>Donasi Khusus</option>
+    </select>
+
+    <br><br>
+
+    <label>Keterangan</label>
+    <input type="text" id="keterangan" placeholder="Contoh: Donasi Jumat">
+
+    <br><br>
+
+    <button type="button" onclick="simpanData()">Simpan Transaksi</button>
+    <button type="button" onclick="printLaporan()">Print / Save PDF</button>
+    <button type="button" onclick="loginAdmin()">Login Admin</button>
+
+    <div id="areaLaporan">
+
+        <!-- HEADER KHUSUS PRINT -->
+        <div class="print-header">
+            <img src="logoalhasan.png" width="100">
+            <div>
+                <h1>Laporan Keuangan Masjid Al Hasan</h1>
+                <p>Masjid Al-Hasan - Sistem Kas Digital</p>
+            </div>
+        </div>
+
+        <div id="dashboard">
+            <div class="card pemasukan">
+                <h3>Total Pemasukan</h3>
+                <p id="totalPemasukan">Rp 0</p>
+            </div>
+
+            <div class="card pengeluaran">
+                <h3>Total Pengeluaran</h3>
+                <p id="totalPengeluaran">Rp 0</p>
+            </div>
+
+            <div class="card saldo">
+                <h3>Saldo Akhir</h3>
+                <p id="saldo">Rp 0</p>
+            </div>
+        </div>
+
+        <h2>Riwayat Transaksi</h2>
+
+        <label id="labelFilter">Filter Jenis:</label>
+        <select id="filterJenis" onchange="refreshTabel()">
+            <option value="Semua">Semua</option>
+            <option value="Pemasukan">Pemasukan</option>
+            <option value="Pengeluaran">Pengeluaran</option>
+            <option value="Donasi Khusus">Donasi Khusus</option>
+        </select>
+
+        <table id="tabelTransaksi">
+            <tr>
+                <th>Tanggal</th>
+                <th>Jumlah</th>
+                <th>Jenis</th>
+                <th>Keterangan</th>
+                <th class="kolom-aksi">Aksi</th>
+            </tr>
+        </table>
+
+        <footer class="footer">
+            <p>Laporan dibuat oleh Bendahara Masjid Al-Hasan</p>
+            <p>© <span id="tahun"></span> Masjid Al-Hasan</p>
+        </footer>
+    </div>
+
+    <script>
+    let saldo = 0;
+    let semuaTransaksi = [];
+    let modeAdmin = false;
+    let passwordAdmin = "bendaharaalhasan";
+
+    const API_URL = "https://script.google.com/macros/s/AKfycbyM8nYdVEvPUnEbd0hnlrMU4FCG3Xi9gajZkL1I8PuwqQUuIwHrP1BnB1YDBrStlEzu/exec";
+
+    function formatRupiah(angka) {
+        return "Rp " + Number(angka).toLocaleString("id-ID");
+    }
+
+    function loginAdmin() {
+        let inputPassword = prompt("Masukkan password admin:");
+
+        if (inputPassword === passwordAdmin) {
+            modeAdmin = true;
+            alert("Login admin berhasil");
+            refreshTabel();
+        } else {
+            alert("Password salah");
+        }
+    }
+
+    function simpanData() {
+        if (!modeAdmin) {
+            alert("Login admin dulu");
+            return;
+        }
+
+        let tanggal = document.getElementById("tanggal").value;
+        let jumlah = document.getElementById("jumlah").value;
+        let jenis = document.getElementById("jenis").value;
+        let keterangan = document.getElementById("keterangan").value;
+
+        if (tanggal === "" || jumlah === "") {
+            alert("Tanggal dan jumlah wajib diisi");
+            return;
+        }
+
+        let transaksi = {
+            tanggal: tanggal,
+            jumlah: jumlah,
+            jenis: jenis,
+            keterangan: keterangan
+        };
+
+        fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(transaksi)
+        })
+        .then(response => response.json())
+        .then(() => {
+            loadDataDariSheet();
+
+            document.getElementById("tanggal").value = "";
+            document.getElementById("jumlah").value = "";
+            document.getElementById("jenis").value = "Pemasukan";
+            document.getElementById("keterangan").value = "";
+        });
+    }
+
+    function hapusBaris(index) {
+        if (!modeAdmin) {
+            alert("Hanya admin yang bisa hapus");
+            return;
+        }
+
+        let rowSheet = semuaTransaksi[index].row;
+
+        fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                mode: "delete",
+                row: rowSheet
+            })
+        })
+        .then(response => response.json())
+        .then(() => {
+            loadDataDariSheet();
+        });
+    }
+
+    function refreshTabel() {
+        let tabel = document.getElementById("tabelTransaksi");
+        let filter = document.getElementById("filterJenis").value;
+
+        semuaTransaksi.sort(function(a, b) {
+            return new Date(a.tanggal) - new Date(b.tanggal);
+        });
+
+        tabel.innerHTML = `
+            <tr>
+                <th>Tanggal</th>
+                <th>Jumlah</th>
+                <th>Jenis</th>
+                <th>Keterangan</th>
+                <th class="kolom-aksi">Aksi</th>
+            </tr>
+        `;
+
+        for (let i = 0; i < semuaTransaksi.length; i++) {
+            if (filter !== "Semua" && semuaTransaksi[i].jenis !== filter) {
+                continue;
+            }
+
+            let barisBaru = tabel.insertRow();
+
+            barisBaru.insertCell(0).innerHTML = semuaTransaksi[i].tanggal;
+            barisBaru.insertCell(1).innerHTML = formatRupiah(semuaTransaksi[i].jumlah);
+            barisBaru.insertCell(2).innerHTML = semuaTransaksi[i].jenis;
+            barisBaru.insertCell(3).innerHTML = semuaTransaksi[i].keterangan;
+
+            let kolomAksi = barisBaru.insertCell(4);
+            kolomAksi.className = "kolom-aksi";
+
+            if (modeAdmin) {
+                kolomAksi.innerHTML =
+                    '<button type="button" onclick="hapusBaris(' + i + ')" style="color:red; background:none;">✕</button>';
+            } else {
+                kolomAksi.innerHTML = "";
+            }
+        }
+    }
+
+    function hitungSaldo() {
+        let totalPemasukan = 0;
+        let totalPengeluaran = 0;
+        saldo = 0;
+
+        for (let i = 0; i < semuaTransaksi.length; i++) {
+            let jumlah = Number(semuaTransaksi[i].jumlah);
+
+            if (
+                semuaTransaksi[i].jenis === "Pemasukan" ||
+                semuaTransaksi[i].jenis === "Donasi Khusus"
+            ) {
+                totalPemasukan += jumlah;
+                saldo += jumlah;
+            } else {
+                totalPengeluaran += jumlah;
+                saldo -= jumlah;
+            }
+        }
+
+        document.getElementById("totalPemasukan").innerHTML = formatRupiah(totalPemasukan);
+        document.getElementById("totalPengeluaran").innerHTML = formatRupiah(totalPengeluaran);
+        document.getElementById("saldo").innerHTML = formatRupiah(saldo);
+    }
+
+    function printLaporan() {
+        window.print();
+    }
+
+    function loadDataDariSheet() {
+        fetch(API_URL)
+            .then(response => response.json())
+            .then(data => {
+                semuaTransaksi = data;
+                refreshTabel();
+                hitungSaldo();
+            });
+    }
+
+    window.onload = function () {
+        loadDataDariSheet();
+        document.getElementById("tahun").innerHTML = new Date().getFullYear();
+    };
+</script>
+
+</body>
+</html>
