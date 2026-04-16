@@ -3,458 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Kas Masjid Al-Hasan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Sistem Kas Premium DKM AL HASAN</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
         :root {
-            --primary-color: #1e3a8a; /* Blue Dark */
-            --success-color: #10b981; /* Green */
-            --danger-color: #ef4444; /* Red */
-            --warning-color: #f59e0b; /* Orange/Gold */
-            --bg-body: #f8fafc;
-            --text-main: #1e293b;
+            --primary-grad: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            --accent-grad: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --success-bg: #dcfce7;
+            --success-text: #15803d;
+            --danger-bg: #fee2e2;
+            --danger-text: #b91c1c;
+            --glass: rgba(255, 255, 255, 0.95);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f1f5f9;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.1) 0px, transparent 50%);
+            color: #1e293b;
+            padding: 50px 20px;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        /* HEADER SECTION */
+        /* HEADER MEWAH */
         .header {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            border-left: 8px solid var(--primary-color);
+            text-align: center;
+            background: var(--glass);
+            padding: 50px 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .header img {
-            margin-right: 20px;
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+        .header img { 
+            width: 140px; 
+            margin-bottom: 25px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-            color: var(--primary-color);
-            font-weight: 700;
+        .header h1 { 
+            font-size: 36px; 
+            font-weight: 800; 
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
         }
 
-        .header p {
-            margin: 5px 0 0;
-            color: #64748b;
-            font-size: 14px;
+        .header .alamat { color: #64748b; font-size: 15px; margin-top: 10px; font-weight: 500; }
+
+        /* STATS CARDS */
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; 
+            margin-bottom: 40px; 
         }
 
-        /* FORM SECTION */
-        .form-card {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-        }
-
-        .grid-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #475569;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-            box-sizing: border-box;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
-        }
-
-        /* BUTTONS */
-        .button-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-save { background: var(--primary-color); color: white; }
-        .btn-save:hover { background: #1e40af; transform: translateY(-1px); }
-
-        .btn-print { background: #64748b; color: white; }
-        .btn-login { background: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
-
-        /* DASHBOARD CARDS */
-        #dashboard {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            text-align: left;
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.02);
             position: relative;
             overflow: hidden;
         }
 
-        .card h3 {
-            font-size: 14px;
-            margin: 0;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .card::after {
+            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
+        }
+        .pemasukan::after { background: var(--success-text); }
+        .pengeluaran::after { background: var(--danger-text); }
+        .saldo::after { background: var(--accent-grad); }
+
+        .card small { font-weight: 700; color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .card p { font-size: 26px; font-weight: 800; margin-top: 10px; color: #0f172a; }
+
+        /* PANEL & FORMS */
+        .panel {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.03);
+            border: 1px solid white;
         }
 
-        .card p {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 10px 0 0;
+        .grid-form { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 35px; 
         }
 
-        .pemasukan { border-bottom: 4px solid var(--success-color); }
-        .pemasukan p { color: var(--success-color); }
-
-        .pengeluaran { border-bottom: 4px solid var(--danger-color); }
-        .pengeluaran p { color: var(--danger-color); }
-
-        .saldo { border-bottom: 4px solid var(--warning-color); }
-        .saldo p { color: var(--warning-color); }
-
-        /* TABLE SECTION */
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        .input-group label { 
+            font-size: 12px; font-weight: 800; margin-bottom: 12px; display: block;
+            color: #475569; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
+        input, select { 
+            width: 100%; padding: 15px 20px; border-radius: 15px; border: 1.5px solid #e2e8f0; 
+            font-size: 15px; background: #f8fafc; transition: all 0.3s ease;
         }
 
-        th {
-            background: #f8fafc;
-            padding: 15px;
-            text-align: left;
-            font-size: 13px;
-            color: #64748b;
-            border-bottom: 2px solid #edf2f7;
+        input:focus { border-color: #2563eb; background: white; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); outline: none; }
+
+        /* BUTTONS */
+        .btn-group { display: flex; gap: 15px; }
+        .btn { 
+            padding: 15px 35px; border-radius: 16px; border: none; font-weight: 700; cursor: pointer; 
+            transition: all 0.3s ease; font-size: 15px;
+        }
+        .btn-save { background: var(--accent-grad); color: white; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4); }
+        .btn-save:hover { transform: translateY(-3px); box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5); }
+        .btn-print { background: #fff; border: 1.5px solid #e2e8f0; color: #1e293b; }
+        .btn-print:hover { background: #f8fafc; }
+
+        /* TABLE */
+        .table-container { 
+            background: white; padding: 40px; border-radius: 30px; 
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.03); border: 1px solid white;
         }
 
-        td {
-            padding: 15px;
-            font-size: 14px;
-            border-bottom: 1px solid #f1f5f9;
-        }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+        th { padding: 20px; text-align: left; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 20px; background: #fff; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+        td:first-child { border-left: 1px solid #f1f5f9; border-radius: 18px 0 0 18px; }
+        td:last-child { border-right: 1px solid #f1f5f9; border-radius: 0 18px 18px 0; }
 
-        tr:hover { background-color: #fdfdfd; }
-
+        /* BADGE JENIS */
         .badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
+            padding: 8px 16px; border-radius: 12px; font-size: 11px; font-weight: 800; text-transform: uppercase;
         }
+        .bg-masuk { background: var(--success-bg); color: var(--success-text); }
+        .bg-keluar { background: var(--danger-bg); color: var(--danger-text); }
 
-        .badge-masuk { background: #dcfce7; color: #166534; }
-        .badge-keluar { background: #fee2e2; color: #991b1b; }
-
-        /* LOADING SPINNER */
-        #loader {
-            display: none;
-            margin-left: 10px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--primary-color);
-            border-radius: 50%;
-            width: 15px;
-            height: 15px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        @media (max-width: 768px) {
-            #dashboard { grid-template-columns: 1fr; }
-            .header { flex-direction: column; text-align: center; }
-            .header img { margin-bottom: 15px; margin-right: 0; }
-        }
-
-        /* PRINT SETTINGS */
+        /* =========================================
+           OPTIMASI PRINT / PDF (HEMAT KERTAS)
+        ========================================= */
         @media print {
-            .form-card, .button-group, #labelFilter, #filterJenis, .kolom-aksi, .btn-login {
-                display: none !important;
+            body { background: white !important; background-image: none !important; padding: 0 !important; }
+            .container { max-width: 100% !important; margin: 0 !important; }
+            
+            /* Header Tipis & Rapi */
+            .header { 
+                padding: 10px 0 !important; 
+                margin-bottom: 15px !important; 
+                border-radius: 0 !important; 
+                box-shadow: none !important; 
+                border-bottom: 2px solid #000 !important; 
+                backdrop-filter: none !important;
+                background: none !important;
             }
-            body { background: white; padding: 0; }
-            .container { max-width: 100%; }
-            .card { box-shadow: none; border: 1px solid #ddd; }
+            .header img { width: 80px !important; margin-bottom: 5px !important; }
+            .header h1 { font-size: 20pt !important; -webkit-text-fill-color: #000 !important; }
+            .header .alamat { font-size: 9pt !important; margin-top: 2px !important; }
+
+            /* Sembunyikan Elemen Tak Penting */
+            .panel, .btn-group, .kolom-aksi, #statusAdmin, .toolbar { display: none !important; }
+
+            /* Ringkasan Saldo Kecil */
+            .stats-grid { 
+                gap: 5px !important; 
+                margin-bottom: 15px !important; 
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            .card { 
+                padding: 8px !important; 
+                border-radius: 8px !important; 
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+            }
+            .card small { font-size: 7pt !important; }
+            .card p { font-size: 12pt !important; margin-top: 2px !important; color: #000 !important; }
+            .card::after { display: none !important; }
+
+            /* Tabel Sangat Rapat */
+            .table-container { 
+                padding: 0 !important; 
+                box-shadow: none !important; 
+                border-radius: 0 !important;
+            }
+            table { 
+                border-spacing: 0 !important; 
+                border-collapse: collapse !important; 
+                width: 100% !important;
+                border: 1px solid #000 !important;
+            }
+            th { 
+                padding: 6px !important; 
+                font-size: 8pt !important; 
+                border: 1px solid #000 !important;
+                background: #f0f0f0 !important;
+                color: #000 !important;
+            }
+            td { 
+                padding: 4px 6px !important; 
+                font-size: 8pt !important; 
+                border: 1px solid #000 !important;
+                background: white !important;
+                color: #000 !important;
+            }
+            td:first-child, td:last-child { border-radius: 0 !important; }
+
+            /* Badge Jadi Teks Biasa (Hemat Tinta) */
+            .badge { 
+                padding: 0 !important; 
+                background: none !important; 
+                color: #000 !important; 
+                font-weight: normal !important;
+                font-size: 8pt !important;
+            }
+            
+            footer { 
+                margin-top: 10px !important; 
+                font-size: 7pt !important; 
+                color: #000 !important; 
+            }
         }
+
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .btn-group { flex-direction: column; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
     <div class="header">
-        <img src="logoalhasan.png" width="80" alt="Logo">
-        <div>
-            <h1>Masjid Al-Hasan</h1>
-            <p>Sistem Informasi Laporan Keuangan Digital</p>
-        </div>
+        <img src="logoalhasan.png" alt="Logo DKM">
+        <h1>DKM AL HASAN</h1>
+        <p class="alamat">Dusun Bojongsari RT 06 RW 03 Desa Dewasari<br>Kecamatan Cijeungijing, Kabupaten Ciamis</p>
+        <p style="margin-top: 25px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Laporan Realisasi Kas Digital</p>
     </div>
 
-    <div class="form-card">
+    <div class="panel">
         <div class="grid-form">
-            <div>
+            <div class="input-group">
                 <label>Tanggal</label>
                 <input type="date" id="tanggal">
             </div>
-            <div>
-                <label>Jumlah (Rp)</label>
+            <div class="input-group">
+                <label>Nominal (Rp)</label>
                 <input type="number" id="jumlah" placeholder="0">
             </div>
-            <div>
-                <label>Jenis Transaksi</label>
+            <div class="input-group">
+                <label>Kategori</label>
                 <select id="jenis">
                     <option>Pemasukan</option>
                     <option>Pengeluaran</option>
                     <option>Donasi Khusus</option>
                 </select>
             </div>
-            <div>
+            <div class="input-group">
                 <label>Keterangan</label>
-                <input type="text" id="keterangan" placeholder="Contoh: Infaq Jumat">
+                <input type="text" id="keterangan" placeholder="Nama Transaksi">
             </div>
         </div>
-        
-        <div class="button-group">
-            <button class="btn-save" onclick="simpanData()">
-                Simpan Transaksi <div id="loader"></div>
-            </button>
-            <button class="btn-print" onclick="window.print()">Cetak Laporan</button>
-            <button class="btn-login" id="btnLogin" onclick="loginAdmin()">Login Admin</button>
+        <div class="btn-group">
+            <button id="btnSimpan" class="btn btn-save" onclick="simpanData()">Simpan Transaksi</button>
+            <button class="btn btn-print" onclick="window.print()">Cetak Laporan</button>
+            <button id="statusAdmin" style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;" onclick="loginAdmin()">🔑 Login Admin</button>
         </div>
     </div>
 
-    <div id="areaLaporan">
-        <div id="dashboard">
-            <div class="card pemasukan">
-                <h3>Total Pemasukan</h3>
-                <p id="totalPemasukan">Rp 0</p>
-            </div>
-            <div class="card pengeluaran">
-                <h3>Total Pengeluaran</h3>
-                <p id="totalPengeluaran">Rp 0</p>
-            </div>
-            <div class="card saldo">
-                <h3>Saldo Akhir</h3>
-                <p id="saldo">Rp 0</p>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                <h2 style="margin:0; font-size: 18px;">Riwayat Transaksi</h2>
-                <div>
-                    <select id="filterJenis" onchange="refreshTabel()" style="width: 180px; padding: 8px;">
-                        <option value="Semua">Semua Transaksi</option>
-                        <option value="Pemasukan">Pemasukan</option>
-                        <option value="Pengeluaran">Pengeluaran</option>
-                        <option value="Donasi Khusus">Donasi Khusus</option>
-                    </select>
-                </div>
-            </div>
-
-            <table id="tabelTransaksi">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Keterangan</th>
-                        <th>Jenis</th>
-                        <th>Jumlah</th>
-                        <th class="kolom-aksi">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="bodyTabel">
-                    </tbody>
-            </table>
-        </div>
+    <div class="stats-grid">
+        <div class="card pemasukan"><small>Total Masuk</small><p id="totalPemasukan">Rp 0</p></div>
+        <div class="card pengeluaran"><small>Total Keluar</small><p id="totalPengeluaran">Rp 0</p></div>
+        <div class="card saldo"><small>Saldo Akhir</small><p id="saldo">Rp 0</p></div>
     </div>
 
-    <footer style="text-align: center; margin-top: 40px; color: #94a3b8; font-size: 13px; padding-bottom: 20px;">
-        <p>© <span id="tahun"></span> Masjid Al-Hasan | Dikembangkan untuk transparansi umat</p>
+    <div class="table-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;" class="toolbar">
+            <h3 style="font-weight:800; font-size:20px;">Riwayat Transaksi</h3>
+            <div style="display:flex; gap:10px;">
+                <select id="filterPeriode" onchange="refreshTabel()" style="padding:8px 15px; border-radius:10px; border:1.5px solid #eee; font-size:12px; font-weight:600;">
+                    <option value="Semua">Semua Waktu</option>
+                    <option value="BulanIni">Bulan Ini</option>
+                    <option value="Tahunan">Tahun Ini</option>
+                </select>
+                <input type="text" id="cariTransaksi" onkeyup="refreshTabel()" placeholder="Cari..." style="padding:8px 15px; border-radius:10px; border:1.5px solid #eee; font-size:12px; width:150px;">
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th style="text-align:center;">Jenis</th>
+                    <th style="text-align:right;">Nominal</th>
+                    <th class="kolom-aksi"></th>
+                </tr>
+            </thead>
+            <tbody id="bodyTabel"></tbody>
+        </table>
+    </div>
+
+    <footer style="text-align:center; color:#94a3b8; font-size:11px; margin-top:50px; padding-bottom:30px;">
+        <p>© <span id="tahun"></span> DKM AL HASAN | Dicetak pada <span id="waktuCetak"></span></p>
     </footer>
 </div>
 
 <script>
-    // Konfigurasi Anda tetap sama
     let semuaTransaksi = [];
     let modeAdmin = false;
     let passwordAdmin = "bendaharaalhasan";
+    let isEditing = false;
+    let editRowId = null;
     const API_URL = "https://script.google.com/macros/s/AKfycbyM8nYdVEvPUnEbd0hnlrMU4FCG3Xi9gajZkL1I8PuwqQUuIwHrP1BnB1YDBrStlEzu/exec";
 
-    function formatRupiah(angka) {
-        return "Rp " + Number(angka).toLocaleString("id-ID");
+    function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
+    
+    function formatTanggalIndo(tgl) {
+        if (!tgl) return "-";
+        const d = new Date(tgl);
+        return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
     }
 
-    function toggleLoader(show) {
-        document.getElementById("loader").style.display = show ? "inline-block" : "none";
-    }
-
-    function loginAdmin() {
-        let inputPassword = prompt("Masukkan password admin:");
-        if (inputPassword === passwordAdmin) {
+    async function loginAdmin() {
+        const { value: pass } = await Swal.fire({ 
+            title: 'Akses Bendahara', input: 'password', showCancelButton: true, confirmButtonColor: '#0f172a'
+        });
+        if (pass === passwordAdmin) {
             modeAdmin = true;
-            document.getElementById("btnLogin").innerHTML = "Admin Active ✅";
-            document.getElementById("btnLogin").style.borderColor = "var(--success-color)";
+            document.getElementById("statusAdmin").innerHTML = "Admin Aktif ✅";
             refreshTabel();
-        } else {
-            alert("Password salah!");
+            Swal.fire('Berhasil', 'Akses Admin dibuka.', 'success');
         }
     }
 
-    function simpanData() {
-        if (!modeAdmin) return alert("Silahkan login admin terlebih dahulu.");
-        
-        let tanggal = document.getElementById("tanggal").value;
-        let jumlah = document.getElementById("jumlah").value;
-        let jenis = document.getElementById("jenis").value;
-        let keterangan = document.getElementById("keterangan").value;
-
-        if (!tanggal || !jumlah) return alert("Mohon lengkapi tanggal dan jumlah.");
-
-        toggleLoader(true);
-        
-        fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({ tanggal, jumlah, jenis, keterangan })
-        })
-        .then(() => {
-            loadDataDariSheet();
-            // Reset Form
-            document.getElementById("jumlah").value = "";
-            document.getElementById("keterangan").value = "";
-        })
-        .finally(() => toggleLoader(false));
+    function loadData() {
+        fetch(API_URL).then(res => res.json()).then(data => {
+            semuaTransaksi = data;
+            refreshTabel();
+        });
     }
 
     function refreshTabel() {
         const body = document.getElementById("bodyTabel");
-        const filter = document.getElementById("filterJenis").value;
+        const cari = document.getElementById("cariTransaksi").value.toLowerCase();
+        const periode = document.getElementById("filterPeriode").value;
+        const sekarang = new Date();
         
-        semuaTransaksi.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal)); // Terbaru di atas
-
         body.innerHTML = "";
+        let tMasuk = 0, tKeluar = 0;
 
-        semuaTransaksi.forEach((item, index) => {
-            if (filter !== "Semua" && item.jenis !== filter) return;
+        let filtered = semuaTransaksi.filter(item => {
+            const tgl = new Date(item.tanggal);
+            const selisihBulan = (sekarang.getFullYear() - tgl.getFullYear()) * 12 + (sekarang.getMonth() - tgl.getMonth());
+            let lolos = item.keterangan.toLowerCase().includes(cari);
+            if (periode === "BulanIni") lolos = lolos && (selisihBulan === 0);
+            if (periode === "Tahunan") lolos = lolos && (tgl.getFullYear() === sekarang.getFullYear());
+            return lolos;
+        }).sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
 
-            let row = body.insertRow();
-            let isKeluar = item.jenis === "Pengeluaran";
+        filtered.forEach(item => {
+            const nominal = Number(item.jumlah);
+            const isKeluar = item.jenis === "Pengeluaran";
+            if (isKeluar) tKeluar += nominal; else tMasuk += nominal;
+
+            const row = body.insertRow();
+            row.insertCell(0).innerText = formatTanggalIndo(item.tanggal);
+            row.insertCell(1).innerHTML = `<span style="font-weight:700; color:#0f172a;">${item.keterangan}</span>`;
             
-            row.insertCell(0).innerHTML = `<span style="color:#64748b">${item.tanggal}</span>`;
-            row.insertCell(1).innerHTML = `<strong>${item.keterangan || '-'}</strong>`;
-            row.insertCell(2).innerHTML = `<span class="badge ${isKeluar ? 'badge-keluar' : 'badge-masuk'}">${item.jenis}</span>`;
-            row.insertCell(3).innerHTML = `<span style="font-weight:600; color:${isKeluar ? 'var(--danger-color)' : 'var(--success-color)'}">${formatRupiah(item.jumlah)}</span>`;
+            let badgeClass = isKeluar ? 'bg-keluar' : 'bg-masuk';
+            row.insertCell(2).innerHTML = `<div style="text-align:center;"><span class="badge ${badgeClass}">${item.jenis}</span></div>`;
             
-            let aksi = row.insertCell(4);
+            row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(item.jumlah)}</div>`;
+            
+            const aksi = row.insertCell(4);
             aksi.className = "kolom-aksi";
             if (modeAdmin) {
-                aksi.innerHTML = `<button onclick="hapusData(${index})" style="background:none; color:red; padding:5px;">✕</button>`;
+                aksi.innerHTML = `<button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; cursor:pointer; font-size:16px;">✎</button> 
+                                 <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; cursor:pointer; font-size:16px; margin-left:10px;">✕</button>`;
+            }
+        });
+
+        document.getElementById("totalPemasukan").innerText = formatRupiah(tMasuk);
+        document.getElementById("totalPengeluaran").innerText = formatRupiah(tKeluar);
+        document.getElementById("saldo").innerText = formatRupiah(tMasuk - tKeluar);
+    }
+
+    function simpanData() {
+        if (!modeAdmin) return Swal.fire('Ditolak', 'Harap login admin.', 'warning');
+        const payload = {
+            tanggal: document.getElementById("tanggal").value,
+            jumlah: document.getElementById("jumlah").value,
+            jenis: document.getElementById("jenis").value,
+            keterangan: document.getElementById("keterangan").value,
+            mode: isEditing ? "edit" : "insert",
+            row: editRowId
+        };
+        Swal.showLoading();
+        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
+            Swal.fire('Berhasil', 'Data diproses', 'success');
+            resetForm(); loadData();
+        });
+    }
+
+    function prepareEdit(rowId) {
+        const item = semuaTransaksi.find(t => t.row == rowId);
+        isEditing = true; editRowId = rowId;
+        document.getElementById("tanggal").value = new Date(item.tanggal).toISOString().split('T')[0];
+        document.getElementById("jumlah").value = item.jumlah;
+        document.getElementById("jenis").value = item.jenis;
+        document.getElementById("keterangan").value = item.keterangan;
+        document.getElementById("btnSimpan").innerText = "Update Data";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetForm() {
+        isEditing = false; editRowId = null;
+        document.getElementById("tanggal").value = "";
+        document.getElementById("jumlah").value = "";
+        document.getElementById("keterangan").value = "";
+        document.getElementById("btnSimpan").innerText = "Simpan Transaksi";
+    }
+
+    function hapusData(rowId) {
+        Swal.fire({ title: 'Hapus data?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#f43f5e' }).then(res => {
+            if (res.isConfirmed) {
+                fetch(API_URL, { method: "POST", body: JSON.stringify({ mode: "delete", row: rowId }) }).then(() => loadData());
             }
         });
     }
 
-    function hapusData(index) {
-        if (!confirm("Hapus data ini?")) return;
-        
-        let rowSheet = semuaTransaksi[index].row;
-        toggleLoader(true);
-
-        fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({ mode: "delete", row: rowSheet })
-        })
-        .then(() => loadDataDariSheet())
-        .finally(() => toggleLoader(false));
-    }
-
-    function hitungSaldo() {
-        let tMasuk = 0, tKeluar = 0;
-        semuaTransaksi.forEach(t => {
-            let nominal = Number(t.jumlah);
-            if (t.jenis === "Pengeluaran") tKeluar += nominal;
-            else tMasuk += nominal;
-        });
-
-        document.getElementById("totalPemasukan").innerHTML = formatRupiah(tMasuk);
-        document.getElementById("totalPengeluaran").innerHTML = formatRupiah(tKeluar);
-        document.getElementById("saldo").innerHTML = formatRupiah(tMasuk - tKeluar);
-    }
-
-    function loadDataDariSheet() {
-        fetch(API_URL)
-            .then(res => res.json())
-            .then(data => {
-                semuaTransaksi = data;
-                refreshTabel();
-                hitungSaldo();
-            });
-    }
-
-    window.onload = () => {
-        loadDataDariSheet();
+    window.onload = () => { 
+        loadData(); 
         document.getElementById("tahun").innerText = new Date().getFullYear();
+        document.getElementById("waktuCetak").innerText = new Date().toLocaleString('id-ID');
     };
 </script>
-
 </body>
 </html>
