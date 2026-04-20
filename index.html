@@ -134,7 +134,7 @@
             </div>
             <div class="input-group"><label>Keterangan</label><input type="text" id="keterangan" placeholder="Uraian"></div>
             <div class="input-group">
-                <label>Bukti (Upload)</label>
+                <label>Bukti (Upload ke Drive)</label>
                 <input type="file" id="buktiFile" accept="image/*">
             </div>
         </div>
@@ -195,7 +195,7 @@
     let isEditing = false;
     let editRowId = null;
     
-    // PASTIKAN URL INI ADALAH URL WEB APP YANG SUDAH DI-DEPLOY TERBARU
+    // GANTI DENGAN URL DEPLOY TERBARU ANDA
     const API_URL = "https://script.google.com/macros/s/AKfycbyM8nYdVEvPUnEbd0hnlrMU4FCG3Xi9gajZkL1I8PuwqQUuIwHrP1BnB1YDBrStlEzu/exec";
 
     function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
@@ -245,31 +245,27 @@
         
         const fileInput = document.getElementById("buktiFile");
         let base64Img = "";
-        
-        // Hanya proses gambar jika admin memilih file
-        if (fileInput.files.length > 0) {
-            base64Img = await toBase64(fileInput.files[0]);
-        }
+        if (fileInput.files.length > 0) base64Img = await toBase64(fileInput.files[0]);
 
         const payload = {
             tanggal: document.getElementById("tanggal").value,
             jumlah: document.getElementById("jumlah").value,
             jenis: document.getElementById("jenis").value,
             keterangan: document.getElementById("keterangan").value,
-            bukti: base64Img, // Mengirim data Base64 ke Apps Script
+            bukti: base64Img,
             mode: isEditing ? "edit" : "insert",
             row: editRowId
         };
 
-        if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal harus diisi', 'warning');
+        if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
 
-        Swal.showLoading();
+        Swal.fire({ title: 'Memproses...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
+        
         fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
-            resetForm(); 
-            loadData();
-            Swal.fire('Berhasil', 'Data telah diperbarui', 'success');
-        }).catch(err => {
-            Swal.fire('Error', 'Gagal menyimpan data', 'error');
+            resetForm(); loadData();
+            Swal.fire('Berhasil', 'Data kas telah diperbarui', 'success');
+        }).catch(() => {
+            Swal.fire('Error', 'Terjadi kesalahan sistem', 'error');
         });
     }
 
@@ -303,16 +299,14 @@
             
             const aksi = row.insertCell(4);
             if (modeAdmin) {
-                // TAMPILAN ADMIN: EDIT & HAPUS
                 aksi.innerHTML = `
                     <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
                     <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
                 `;
             } else {
-                // TAMPILAN PENGUNJUNG: DOWNLOAD BUKTI
-                // Mengecek apakah data bukti tersedia (Base64 atau Link)
-                if (item.bukti && item.bukti.length > 50) {
-                    aksi.innerHTML = `<a href="${item.bukti}" target="_blank" class="btn-download">Download Bukti</a>`;
+                // LOGIKA DOWNLOAD: Memastikan link mengarah ke Drive (bukan lokal GitHub)
+                if (item.bukti && item.bukti.startsWith('http')) {
+                    aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
                 } else {
                     aksi.innerHTML = `<span style="color:#cbd5e1; font-size:11px;">Tidak ada bukti</span>`;
                 }
