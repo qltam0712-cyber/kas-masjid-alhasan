@@ -48,17 +48,19 @@
         .header h1 { font-size: 24px; font-weight: 800; background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .header .alamat { color: #64748b; font-size: 13px; margin-top: 5px; font-weight: 500; }
 
-        /* FORMS */
+        /* PANEL ADMIN */
         .panel { background: var(--glass); padding: 25px; border-radius: 24px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .input-group label { font-size: 11px; font-weight: 800; margin-bottom: 8px; display: block; color: #475569; text-transform: uppercase; }
         input, select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #e2e8f0; font-size: 14px; background: #fff; }
 
         /* BUTTONS */
         .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn { padding: 12px 20px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-size: 14px; }
+        .btn { padding: 12px 20px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-size: 14px; transition: 0.2s; }
         .btn-save { background: var(--accent-grad); color: white; }
         .btn-print { background: #fff; border: 1.5px solid #e2e8f0; color: #1e293b; }
+        .btn-download { background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 10px; font-weight: 800; border: 1px solid #dbeafe; white-space: nowrap; }
+        .btn-download:hover { background: #2563eb; color: white; }
 
         /* STATS CARDS */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
@@ -68,51 +70,31 @@
         .pemasukan p { color: var(--success-text); }
         .pengeluaran p { color: var(--danger-text); }
 
-        /* TABLE - MOBILE FIX */
+        /* TABLE */
         .table-container { background: white; padding: 20px; border-radius: 24px; border: 1px solid #fff; overflow: hidden; }
         .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .table-responsive { width: 100%; overflow-x: auto; }
         
-        /* Pembungkus Tabel Agar Bisa Scroll Horizontal di HP */
-        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        
-        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 600px; /* Memastikan tabel tidak gepeng di HP */ }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 700px; }
         th { padding: 12px; text-align: left; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; }
         td { padding: 12px; background: #fff; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         td:first-child { border-radius: 12px 0 0 12px; border-left: 1px solid #f1f5f9; }
-        td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid #f1f5f9; }
+        td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid #f1f5f9; text-align: center; }
 
         .badge { padding: 6px 12px; border-radius: 10px; font-size: 10px; font-weight: 800; }
         .bg-masuk { background: var(--success-bg); color: var(--success-text); }
         .bg-keluar { background: var(--danger-bg); color: var(--danger-text); }
 
-        /* RESPONSIVE MOBILE HP */
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .header { padding: 20px 10px; }
-            .header h1 { font-size: 20px; }
-            .stats-grid { grid-template-columns: 1fr; } /* Kartu jadi vertikal di HP */
-            .btn { width: 100%; } /* Tombol lebar penuh di HP */
-            .toolbar { flex-direction: column; align-items: stretch; }
-            #cariTransaksi { width: 100% !important; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .btn { width: 100%; }
         }
 
-        /* PRINT MODE - HEMAT KERTAS */
         @media print {
-            body { background: white !important; background-image: none !important; padding: 0 !important; }
-            .container { max-width: 100% !important; margin: 0 !important; }
-            .header { padding: 10px 0 !important; border-radius: 0 !important; border-bottom: 2px solid #000 !important; background: none !important; box-shadow: none !important; }
-            .header img { width: 80px !important; }
-            .header h1 { -webkit-text-fill-color: #000 !important; font-size: 18pt !important; }
-            .panel, .btn-group, .kolom-aksi, #statusAdmin, .toolbar { display: none !important; }
-            .stats-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 5px !important; margin-bottom: 15px !important; }
-            .card { padding: 5px !important; border: 1px solid #000 !important; }
-            .card p { font-size: 12pt !important; }
-            .table-container { padding: 0 !important; }
-            .table-responsive { overflow: visible !important; }
-            table { min-width: 100% !important; border-collapse: collapse !important; border: 1px solid #000 !important; }
-            th { padding: 4px !important; font-size: 8pt !important; border: 1px solid #000 !important; background: #eee !important; color: #000 !important; }
-            td { padding: 3px 5px !important; font-size: 8pt !important; border: 1px solid #000 !important; background: white !important; color: #000 !important; }
-            .badge { background: none !important; color: #000 !important; border: none !important; padding: 0 !important; }
+            .panel, .btn-group, .toolbar, #areaLogin { display: none !important; }
+            body { background: white; padding: 0; }
+            .card { border: 1px solid #000; }
+            .badge { border: 1px solid #000; color: #000 !important; background: none !important; }
         }
     </style>
 </head>
@@ -125,7 +107,7 @@
         <p class="alamat">Dusun Bojongsari RT 06 RW 03 Desa Dewasari<br>Kecamatan Cijeungijing, Kabupaten Ciamis</p>
     </div>
 
-    <div class="panel">
+    <div class="panel" id="panelAdmin" style="display: none;">
         <div class="grid-form">
             <div class="input-group"><label>Tanggal</label><input type="date" id="tanggal"></div>
             <div class="input-group"><label>Nominal (Rp)</label><input type="number" id="jumlah" placeholder="0"></div>
@@ -138,12 +120,20 @@
                 </select>
             </div>
             <div class="input-group"><label>Keterangan</label><input type="text" id="keterangan" placeholder="Uraian"></div>
+            <div class="input-group">
+                <label>Bukti (Upload)</label>
+                <input type="file" id="buktiFile" accept="image/*">
+            </div>
         </div>
         <div class="btn-group">
             <button id="btnSimpan" class="btn btn-save" onclick="simpanData()">Simpan Transaksi</button>
-            <button class="btn btn-print" onclick="window.print()">Print / Save PDF</button>
-            <button id="statusAdmin" style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;" onclick="loginAdmin()">🔑 Admin</button>
+            <button class="btn btn-print" onclick="window.print()">Print Laporan</button>
+            <button onclick="logoutAdmin()" style="background:none; border:none; color:#f43f5e; font-size:12px; cursor:pointer;">Keluar Mode Admin</button>
         </div>
+    </div>
+
+    <div id="areaLogin" style="text-align: right; margin-bottom: 10px;">
+        <button style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;" onclick="loginAdmin()">🔑 Login Admin</button>
     </div>
 
     <div class="stats-grid">
@@ -157,7 +147,7 @@
             <h3 style="font-weight:800; font-size:18px;">Riwayat Kas</h3>
             <div style="display:flex; gap:10px;">
                 <select id="filterPeriode" onchange="refreshTabel()" style="padding:5px; border-radius:8px; font-size:12px;">
-                    <option value="Semua">Semua</option>
+                    <option value="Semua">Semua Waktu</option>
                     <option value="BulanIni">Bulan Ini</option>
                 </select>
                 <input type="text" id="cariTransaksi" onkeyup="refreshTabel()" placeholder="Cari..." style="padding:5px; border-radius:8px; width:120px; font-size:12px;">
@@ -172,7 +162,7 @@
                         <th>Keterangan</th>
                         <th style="text-align:center;">Jenis</th>
                         <th style="text-align:right;">Nominal</th>
-                        <th class="kolom-aksi"></th>
+                        <th style="text-align:center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="bodyTabel"></tbody>
@@ -200,19 +190,64 @@
         return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
     }
 
+    // AUTH
     async function loginAdmin() {
         const { value: pass } = await Swal.fire({ title: 'Akses Admin', input: 'password', showCancelButton: true });
         if (pass === passwordAdmin) {
             modeAdmin = true;
-            document.getElementById("statusAdmin").innerHTML = "Admin Aktif";
+            document.getElementById("panelAdmin").style.display = "block";
+            document.getElementById("areaLogin").style.display = "none";
             refreshTabel();
+        } else if (pass) {
+            Swal.fire('Gagal', 'Password Salah', 'error');
         }
     }
 
+    function logoutAdmin() {
+        modeAdmin = false;
+        document.getElementById("panelAdmin").style.display = "none";
+        document.getElementById("areaLogin").style.display = "block";
+        refreshTabel();
+    }
+
+    // DATA HANDLING
     function loadData() {
         fetch(API_URL).then(res => res.json()).then(data => {
             semuaTransaksi = data;
             refreshTabel();
+        });
+    }
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+    async function simpanData() {
+        if (!modeAdmin) return;
+        
+        const fileInput = document.getElementById("buktiFile");
+        let base64Img = "";
+        if (fileInput.files.length > 0) base64Img = await toBase64(fileInput.files[0]);
+
+        const payload = {
+            tanggal: document.getElementById("tanggal").value,
+            jumlah: document.getElementById("jumlah").value,
+            jenis: document.getElementById("jenis").value,
+            keterangan: document.getElementById("keterangan").value,
+            bukti: base64Img,
+            mode: isEditing ? "edit" : "insert",
+            row: editRowId
+        };
+
+        if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal harus diisi', 'warning');
+
+        Swal.showLoading();
+        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
+            resetForm(); loadData();
+            Swal.fire('Berhasil', 'Data telah diperbarui', 'success');
         });
     }
 
@@ -245,32 +280,24 @@
             row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(item.jumlah)}</div>`;
             
             const aksi = row.insertCell(4);
-            aksi.className = "kolom-aksi";
             if (modeAdmin) {
-                aksi.innerHTML = `<button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px;">✎</button> 
-                                 <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px;">✕</button>`;
+                // TAMPILAN ADMIN: EDIT & HAPUS
+                aksi.innerHTML = `
+                    <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
+                    <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
+                `;
+            } else {
+                // TAMPILAN PENGUNJUNG: DOWNLOAD BUKTI
+                if (item.bukti && item.bukti.length > 50) {
+                    aksi.innerHTML = `<a href="${item.bukti}" target="_blank" class="btn-download">Download Bukti</a>`;
+                } else {
+                    aksi.innerHTML = `<span style="color:#cbd5e1; font-size:11px;">Tidak ada bukti</span>`;
+                }
             }
         });
         document.getElementById("totalPemasukan").innerText = formatRupiah(tMasuk);
         document.getElementById("totalPengeluaran").innerText = formatRupiah(tKeluar);
         document.getElementById("saldo").innerText = formatRupiah(tMasuk - tKeluar);
-    }
-
-    function simpanData() {
-        if (!modeAdmin) return Swal.fire('Ditolak', 'Login admin dulu', 'warning');
-        const payload = {
-            tanggal: document.getElementById("tanggal").value,
-            jumlah: document.getElementById("jumlah").value,
-            jenis: document.getElementById("jenis").value,
-            keterangan: document.getElementById("keterangan").value,
-            mode: isEditing ? "edit" : "insert",
-            row: editRowId
-        };
-        Swal.showLoading();
-        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
-            resetForm(); loadData();
-            Swal.fire('Sukses', 'Data diproses', 'success');
-        });
     }
 
     function prepareEdit(rowId) {
@@ -284,15 +311,29 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function resetForm() { isEditing = false; editRowId = null; document.getElementById("btnSimpan").innerText = "Simpan Transaksi"; }
+    function resetForm() { 
+        isEditing = false; 
+        editRowId = null; 
+        document.getElementById("btnSimpan").innerText = "Simpan Transaksi";
+        document.getElementById("buktiFile").value = "";
+        document.getElementById("jumlah").value = "";
+        document.getElementById("keterangan").value = "";
+    }
 
     function hapusData(rowId) {
-        Swal.fire({ title: 'Hapus?', icon: 'warning', showCancelButton: true }).then(res => {
-            if (res.isConfirmed) fetch(API_URL, { method: "POST", body: JSON.stringify({ mode: "delete", row: rowId }) }).then(() => loadData());
+        Swal.fire({ title: 'Hapus Data?', icon: 'warning', showCancelButton: true }).then(res => {
+            if (res.isConfirmed) {
+                Swal.showLoading();
+                fetch(API_URL, { method: "POST", body: JSON.stringify({ mode: "delete", row: rowId }) }).then(() => loadData());
+            }
         });
     }
 
-    window.onload = () => { loadData(); document.getElementById("tahun").innerText = new Date().getFullYear(); document.getElementById("waktuCetak").innerText = new Date().toLocaleString('id-ID'); };
+    window.onload = () => { 
+        loadData(); 
+        document.getElementById("tahun").innerText = new Date().getFullYear(); 
+        document.getElementById("waktuCetak").innerText = new Date().toLocaleString('id-ID'); 
+    };
 </script>
 </body>
 </html>
