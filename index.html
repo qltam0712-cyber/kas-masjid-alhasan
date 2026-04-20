@@ -96,13 +96,6 @@
             .stats-grid { grid-template-columns: 1fr; }
             .btn { width: 100%; }
         }
-
-        @media print {
-            .panel, .btn-group, .toolbar, #areaLogin { display: none !important; }
-            body { background: white; padding: 0; }
-            .card { border: 1px solid #000; }
-            .badge { border: 1px solid #000; color: #000 !important; background: none !important; }
-        }
     </style>
 </head>
 <body>
@@ -189,7 +182,8 @@
     let isEditing = false;
     let editRowId = null;
     
-    const API_URL = "https://script.google.com/macros/s/AKfycbyM8nYdVEvPUnEbd0hnlrMU4FCG3Xi9gajZkL1I8PuwqQUuIwHrP1BnB1YDBrStlEzu/exec";
+    // API URL SUDAH DIISI DENGAN BENAR
+    const API_URL = "https://script.google.com/macros/s/AKfycbysmycEOkT5CdDzbDzxLPyvdcUQsS4ctHr_LfFoKbszU8boOND8NrWJ4QjESzc05kJu/exec";
 
     function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
     function formatTanggalIndo(tgl) {
@@ -221,7 +215,7 @@
         fetch(API_URL).then(res => res.json()).then(data => {
             semuaTransaksi = data;
             refreshTabel();
-        });
+        }).catch(err => console.error("Error loading data:", err));
     }
 
     const toBase64 = file => new Promise((resolve, reject) => {
@@ -251,15 +245,16 @@
             row: editRowId
         };
 
-        if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal harus diisi', 'warning');
+        if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
 
-        Swal.showLoading();
+        Swal.fire({ title: 'Menyimpan...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
+
         fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
             resetForm(); 
             loadData();
-            Swal.fire('Berhasil', 'Data telah diperbarui', 'success');
+            Swal.fire('Berhasil', 'Data kas telah diperbarui', 'success');
         }).catch(err => {
-            Swal.fire('Error', 'Gagal menyimpan data', 'error');
+            Swal.fire('Error', 'Gagal terhubung ke sistem', 'error');
         });
     }
 
@@ -298,7 +293,6 @@
                     <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
                 `;
             } else {
-                // Perbaikan Logika: Mengecek apakah bukti adalah Link (Drive) atau Data (Base64)
                 if (item.bukti && (item.bukti.startsWith('http') || item.bukti.length > 50)) {
                     aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
                 } else {
