@@ -59,7 +59,20 @@
         .btn { padding: 12px 20px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-size: 14px; transition: 0.2s; }
         .btn-save { background: var(--accent-grad); color: white; }
         .btn-print { background: #fff; border: 1.5px solid #e2e8f0; color: #1e293b; }
-        .btn-download { background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 10px; font-weight: 800; border: 1px solid #dbeafe; white-space: nowrap; }
+        
+        /* TOMBOL DOWNLOAD */
+        .btn-download { 
+            background: #eff6ff; 
+            color: #2563eb; 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-size: 10px; 
+            font-weight: 800; 
+            border: 1px solid #dbeafe; 
+            white-space: nowrap; 
+            display: inline-block;
+        }
         .btn-download:hover { background: #2563eb; color: white; }
 
         /* STATS CARDS */
@@ -181,6 +194,8 @@
     let passwordAdmin = "bendaharaalhasan";
     let isEditing = false;
     let editRowId = null;
+    
+    // PASTIKAN URL INI ADALAH URL WEB APP YANG SUDAH DI-DEPLOY TERBARU
     const API_URL = "https://script.google.com/macros/s/AKfycbyM8nYdVEvPUnEbd0hnlrMU4FCG3Xi9gajZkL1I8PuwqQUuIwHrP1BnB1YDBrStlEzu/exec";
 
     function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
@@ -230,14 +245,18 @@
         
         const fileInput = document.getElementById("buktiFile");
         let base64Img = "";
-        if (fileInput.files.length > 0) base64Img = await toBase64(fileInput.files[0]);
+        
+        // Hanya proses gambar jika admin memilih file
+        if (fileInput.files.length > 0) {
+            base64Img = await toBase64(fileInput.files[0]);
+        }
 
         const payload = {
             tanggal: document.getElementById("tanggal").value,
             jumlah: document.getElementById("jumlah").value,
             jenis: document.getElementById("jenis").value,
             keterangan: document.getElementById("keterangan").value,
-            bukti: base64Img,
+            bukti: base64Img, // Mengirim data Base64 ke Apps Script
             mode: isEditing ? "edit" : "insert",
             row: editRowId
         };
@@ -246,8 +265,11 @@
 
         Swal.showLoading();
         fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
-            resetForm(); loadData();
+            resetForm(); 
+            loadData();
             Swal.fire('Berhasil', 'Data telah diperbarui', 'success');
+        }).catch(err => {
+            Swal.fire('Error', 'Gagal menyimpan data', 'error');
         });
     }
 
@@ -288,6 +310,7 @@
                 `;
             } else {
                 // TAMPILAN PENGUNJUNG: DOWNLOAD BUKTI
+                // Mengecek apakah data bukti tersedia (Base64 atau Link)
                 if (item.bukti && item.bukti.length > 50) {
                     aksi.innerHTML = `<a href="${item.bukti}" target="_blank" class="btn-download">Download Bukti</a>`;
                 } else {
