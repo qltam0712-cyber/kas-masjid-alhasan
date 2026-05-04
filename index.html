@@ -182,8 +182,7 @@
     let isEditing = false;
     let editRowId = null;
     
-    // API URL SUDAH DIISI DENGAN BENAR
-    const API_URL = "https://script.google.com/macros/s/AKfycbysmycEOkT5CdDzbDzxLPyvdcUQsS4ctHr_LfFoKbszU8boOND8NrWJ4QjESzc05kJu/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbxMf9lM6puEba0cwpjRZfN_sTjkLheYZROB_diuu448jJn6qWQ35NffkImFxgadNhq2/exec";
 
     function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
     function formatTanggalIndo(tgl) {
@@ -193,6 +192,7 @@
     }
 
     async function loginAdmin() {
+        console.log("SIMPAN DIKLIK");
         const { value: pass } = await Swal.fire({ title: 'Akses Admin', input: 'password', showCancelButton: true });
         if (pass === passwordAdmin) {
             modeAdmin = true;
@@ -226,37 +226,45 @@
     });
 
     async function simpanData() {
-        if (!modeAdmin) return;
-        
-        const fileInput = document.getElementById("buktiFile");
-        let base64Img = "";
-        
-        if (fileInput.files.length > 0) {
-            base64Img = await toBase64(fileInput.files[0]);
-        }
+    if (!modeAdmin) return;
+    
+    const fileInput = document.getElementById("buktiFile");
+    let base64Img = "";
+    
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        // Jika file > 1MB, kita beri peringatan (opsional) atau lanjut
+        base64Img = await toBase64(file);
+    }
 
-        const payload = {
-            tanggal: document.getElementById("tanggal").value,
-            jumlah: document.getElementById("jumlah").value,
-            jenis: document.getElementById("jenis").value,
-            keterangan: document.getElementById("keterangan").value,
-            bukti: base64Img, 
-            mode: isEditing ? "edit" : "insert",
-            row: editRowId
-        };
+    const payload = {
+        tanggal: document.getElementById("tanggal").value,
+        jumlah: document.getElementById("jumlah").value,
+        jenis: document.getElementById("jenis").value,
+        keterangan: document.getElementById("keterangan").value,
+        bukti: base64Img, 
+        mode: isEditing ? "edit" : "insert",
+        row: editRowId
+    };
 
-        if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
+    if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
 
-        Swal.fire({ title: 'Menyimpan...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
+    Swal.fire({ title: 'Sedang Mengunggah...', text: 'Mohon tunggu sebentar, file sedang dikirim ke Drive', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
 
-        fetch(API_URL, { method: "POST", body: JSON.stringify(payload) }).then(() => {
+    fetch(API_URL, { 
+        method: "POST", 
+        body: JSON.stringify(payload),
+        mode: 'no-cors' // Menghindari masalah CORS di beberapa browser
+    }).then(() => {
+        setTimeout(() => { // Memberi jeda agar server Google selesai memproses
             resetForm(); 
             loadData();
-            Swal.fire('Berhasil', 'Data kas telah diperbarui', 'success');
-        }).catch(err => {
-            Swal.fire('Error', 'Gagal terhubung ke sistem', 'error');
-        });
-    }
+            Swal.fire('Berhasil', 'Data dan Bukti telah disimpan', 'success');
+        }, 1500);
+    }).catch(err => {
+        Swal.fire('Error', 'Koneksi terputus, coba gunakan foto yang lebih kecil', 'error');
+    });
+}
 
     function refreshTabel() {
         const body = document.getElementById("bodyTabel");
@@ -274,7 +282,8 @@
         }).sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
 
         filtered.forEach(item => {
-            const nominal = Number(item.jumlah);
+            // Nominal diambil dari data jumlah
+            const nominal = Number(item.jumlah); 
             const isKeluar = item.jenis === "Pengeluaran";
             if (isKeluar) tKeluar += nominal; else tMasuk += nominal;
 
@@ -287,18 +296,21 @@
             row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(item.jumlah)}</div>`;
             
             const aksi = row.insertCell(4);
-            if (modeAdmin) {
-                aksi.innerHTML = `
-                    <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
-                    <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
-                `;
-            } else {
-                if (item.bukti && (item.bukti.startsWith('http') || item.bukti.length > 50)) {
-                    aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
-                } else {
-                    aksi.innerHTML = `<span style="color:#cbd5e1; font-size:11px;">Tidak ada bukti</span>`;
-                }
-            }
+aksi.style.textAlign = "center";
+
+if (modeAdmin) {
+    aksi.innerHTML = `
+        <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
+        <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
+    `;
+} else {
+    // Logika agar tombol muncul jika kolom F tidak kosong
+    if (item.bukti && item.bukti.toString().trim().length > 10) { 
+        aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
+    } else {
+        aksi.innerHTML = `<span style="color:#cbd5e1; font-size:11px;">Tidak ada bukti</span>`;
+    }
+}
         });
         document.getElementById("totalPemasukan").innerText = formatRupiah(tMasuk);
         document.getElementById("totalPengeluaran").innerText = formatRupiah(tKeluar);
