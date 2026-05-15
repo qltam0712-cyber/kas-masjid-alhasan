@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Kas Premium DKM AL HASAN</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Laporan Kas Digital DKM AL HASAN</title>
+    <link rel="icon" type="image/png" href="logoalhasan.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <style>
         :root {
             --primary-grad: linear-gradient(135deg, #0f172a 0%, #334155 100%);
@@ -19,19 +21,26 @@
             --glass: rgba(255, 255, 255, 0.95);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: #f1f5f9;
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.1) 0px, transparent 50%);
             color: #1e293b;
             padding: 20px;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
         .header {
             text-align: center;
@@ -39,318 +48,532 @@
             padding: 30px 20px;
             border-radius: 24px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(10px);
         }
-        .header img { width: 100px; margin-bottom: 15px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
-        .header h1 { font-size: 24px; font-weight: 800; background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header .alamat { color: #64748b; font-size: 13px; margin-top: 5px; font-weight: 500; }
 
-        .panel { background: var(--glass); padding: 25px; border-radius: 24px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .input-group label { font-size: 11px; font-weight: 800; margin-bottom: 8px; display: block; color: #475569; text-transform: uppercase; }
-        input, select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #e2e8f0; font-size: 14px; background: #fff; }
+        .header img {
+            width: 100px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
+        }
 
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn { padding: 12px 20px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .btn-save { background: var(--accent-grad); color: white; }
-        .btn-print { background: #fff; border: 1.5px solid #e2e8f0; color: #1e293b; }
-        
-        .btn-download { 
-            background: #eff6ff; 
-            color: #2563eb; 
-            padding: 6px 12px; 
-            border-radius: 8px; 
-            text-decoration: none; 
-            font-size: 10px; 
-            font-weight: 800; 
-            border: 1px solid #dbeafe; 
-            white-space: nowrap; 
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header .alamat {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .panel {
+            background: var(--glass);
+            padding: 25px;
+            border-radius: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .grid-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: block;
+            color: #475569;
+            text-transform: uppercase;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .btn-save {
+            background: var(--accent-grad);
+            color: white;
+        }
+
+        .btn-print {
+            background: #fff;
+            border: 1.5px solid #e2e8f0;
+            color: #1e293b;
+        }
+
+        .btn-download {
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 6px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            border: 1px solid #dbeafe;
+            white-space: nowrap;
             display: inline-block;
         }
-        .btn-download:hover { background: #2563eb; color: white; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
-        .card { background: white; padding: 20px; border-radius: 20px; border: 1px solid #e2e8f0; text-align: center; }
-        .card small { font-weight: 700; color: #94a3b8; font-size: 10px; text-transform: uppercase; }
-        .card p { font-size: 18px; font-weight: 800; margin-top: 5px; color: #0f172a; }
-        .pemasukan p { color: var(--success-text); }
-        .pengeluaran p { color: var(--danger-text); }
+        .btn-download:hover {
+            background: #2563eb;
+            color: white;
+        }
 
-        .table-container { background: white; padding: 20px; border-radius: 24px; border: 1px solid #fff; overflow: hidden; }
-        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .table-responsive { width: 100%; overflow-x: auto; }
-        
-        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 700px; }
-        th { padding: 12px; text-align: left; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; }
-        td { padding: 12px; background: #fff; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-        td:first-child { border-radius: 12px 0 0 12px; border-left: 1px solid #f1f5f9; }
-        td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid #f1f5f9; text-align: center; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
-        .badge { padding: 6px 12px; border-radius: 10px; font-size: 10px; font-weight: 800; }
-        .bg-masuk { background: var(--success-bg); color: var(--success-text); }
-        .bg-keluar { background: var(--danger-bg); color: var(--danger-text); }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .card small {
+            font-weight: 700;
+            color: #94a3b8;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 18px;
+            font-weight: 800;
+            margin-top: 5px;
+            color: #0f172a;
+        }
+
+        .pemasukan p {
+            color: var(--success-text);
+        }
+
+        .pengeluaran p {
+            color: var(--danger-text);
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 24px;
+            border: 1px solid #fff;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            min-width: 700px;
+        }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        td {
+            padding: 12px;
+            background: #fff;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+        }
+
+        td:first-child {
+            border-radius: 12px 0 0 12px;
+            border-left: 1px solid #f1f5f9;
+        }
+
+        td:last-child {
+            border-radius: 0 12px 12px 0;
+            border-right: 1px solid #f1f5f9;
+            text-align: center;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .bg-masuk {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .bg-keluar {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+        }
 
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .btn { width: 100%; }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="header">
-        <img src="logoalhasan.png" alt="Logo DKM">
-        <h1>DKM AL HASAN</h1>
-        <p class="alamat">Dusun Bojongsari RT 06 RW 03 Desa Dewasari<br>Kecamatan Cijeungijing, Kabupaten Ciamis</p>
-    </div>
-
-    <div class="panel" id="panelAdmin" style="display: none;">
-        <div class="grid-form">
-            <div class="input-group"><label>Tanggal</label><input type="date" id="tanggal"></div>
-            <div class="input-group"><label>Nominal (Rp)</label><input type="number" id="jumlah" placeholder="0"></div>
-            <div class="input-group">
-                <label>Kategori</label>
-                <select id="jenis">
-                    <option>Pemasukan</option>
-                    <option>Pengeluaran</option>
-                    <option>Donasi Khusus</option>
-                </select>
-            </div>
-            <div class="input-group"><label>Keterangan</label><input type="text" id="keterangan" placeholder="Uraian"></div>
-            <div class="input-group">
-                <label>Bukti (Upload)</label>
-                <input type="file" id="buktiFile" accept="image/*">
-            </div>
+    <div class="container">
+        <div class="header">
+            <img src="logoalhasan.png" alt="Logo DKM">
+            <h1>DKM AL HASAN</h1>
+            <p class="alamat">Dusun Bojongsari RT 06 RW 03 Desa Dewasari<br>Kecamatan Cijeungijing, Kabupaten Ciamis</p>
         </div>
-        <div class="btn-group">
-            <button id="btnSimpan" class="btn btn-save" onclick="simpanData()">Simpan Transaksi</button>
-            <button class="btn btn-print" onclick="window.print()">Print Laporan</button>
-            <button onclick="logoutAdmin()" style="background:none; border:none; color:#f43f5e; font-size:12px; cursor:pointer;">Keluar Mode Admin</button>
-        </div>
-    </div>
 
-    <div id="areaLogin" style="text-align: right; margin-bottom: 10px;">
-        <button style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;" onclick="loginAdmin()">🔑 Login Admin</button>
-    </div>
-
-    <div class="stats-grid">
-        <div class="card pemasukan"><small>Total Masuk</small><p id="totalPemasukan">Rp 0</p></div>
-        <div class="card pengeluaran"><small>Total Keluar</small><p id="totalPengeluaran">Rp 0</p></div>
-        <div class="card saldo"><small>Saldo Akhir</small><p id="saldo">Rp 0</p></div>
-    </div>
-
-    <div class="table-container">
-        <div class="toolbar">
-            <h3 style="font-weight:800; font-size:18px;">Riwayat Kas</h3>
-            <div style="display:flex; gap:10px;">
-                <select id="filterPeriode" onchange="refreshTabel()" style="padding:5px; border-radius:8px; font-size:12px;">
-                    <option value="Semua">Semua Waktu</option>
-                    <option value="BulanIni">Bulan Ini</option>
-                </select>
-                <input type="text" id="cariTransaksi" onkeyup="refreshTabel()" placeholder="Cari..." style="padding:5px; border-radius:8px; width:120px; font-size:12px;">
+        <div class="panel" id="panelAdmin" style="display: none;">
+            <div class="grid-form">
+                <div class="input-group"><label>Tanggal</label><input type="date" id="tanggal"></div>
+                <div class="input-group"><label>Nominal (Rp)</label><input type="number" id="jumlah" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <label>Kategori</label>
+                    <select id="jenis">
+                        <option>Pemasukan</option>
+                        <option>Pengeluaran</option>
+                        <option>Donasi Khusus</option>
+                    </select>
+                </div>
+                <div class="input-group"><label>Keterangan</label><input type="text" id="keterangan"
+                        placeholder="Uraian"></div>
+                <div class="input-group">
+                    <label>Bukti (Upload)</label>
+                    <input type="file" id="buktiFile" accept="image/*">
+                </div>
+            </div>
+            <div class="btn-group">
+                <button id="btnSimpan" class="btn btn-save" onclick="simpanData()">Simpan Transaksi</button>
+                <button class="btn btn-print" onclick="window.print()">Print Laporan</button>
+                <button onclick="logoutAdmin()"
+                    style="background:none; border:none; color:#f43f5e; font-size:12px; cursor:pointer;">Keluar Mode
+                    Admin</button>
             </div>
         </div>
-        
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Keterangan</th>
-                        <th style="text-align:center;">Jenis</th>
-                        <th style="text-align:right;">Nominal</th>
-                        <th style="text-align:center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="bodyTabel"></tbody>
-            </table>
+
+        <div id="areaLogin" style="text-align: right; margin-bottom: 10px;">
+            <button style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;"
+                onclick="loginAdmin()">🔑 Login Admin</button>
         </div>
+
+        <div class="stats-grid">
+            <div class="card pemasukan"><small>Total Masuk</small>
+                <p id="totalPemasukan">Rp 0</p>
+            </div>
+            <div class="card pengeluaran"><small>Total Keluar</small>
+                <p id="totalPengeluaran">Rp 0</p>
+            </div>
+            <div class="card saldo"><small>Saldo Akhir</small>
+                <p id="saldo">Rp 0</p>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="toolbar">
+                <h3 style="font-weight:800; font-size:18px;">Riwayat Kas</h3>
+                <div style="display:flex; gap:10px;">
+                    <select id="filterTahun" onchange="refreshTabel()"
+                        style="padding:5px; border-radius:8px; font-size:12px;">
+                        <option value="Semua">Semua Tahun</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
+
+                    <select id="filterPeriode" onchange="refreshTabel()"
+                        style="padding:5px; border-radius:8px; font-size:12px;">
+                        <option value="Semua">Semua Bulan</option>
+                        <option value="BulanIni">Bulan Ini</option>
+                    </select>
+
+                    <input type="text" id="cariTransaksi" onkeyup="refreshTabel()" placeholder="Cari..."
+                        style="padding:5px; border-radius:8px; width:120px; font-size:12px;">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Keterangan</th>
+                            <th style="text-align:center;">Jenis</th>
+                            <th style="text-align:right;">Nominal</th>
+                            <th style="text-align:center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTabel"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer style="text-align:center; color:#94a3b8; font-size:10px; margin-top:30px; padding-bottom:20px;">
+            <p>© <span id="tahun"></span> DKM AL HASAN | <span id="waktuCetak"></span></p>
+        </footer>
     </div>
 
-    <footer style="text-align:center; color:#94a3b8; font-size:10px; margin-top:30px; padding-bottom:20px;">
-        <p>© <span id="tahun"></span> DKM AL HASAN | <span id="waktuCetak"></span></p>
-    </footer>
-</div>
+    <script>
+        let semuaTransaksi = [];
+        let modeAdmin = false;
+        let passwordAdmin = "12345";
+        let isEditing = false;
+        let editRowId = null;
 
-<script>
-    let semuaTransaksi = [];
-    let modeAdmin = false;
-    let passwordAdmin = "12345";
-    let isEditing = false;
-    let editRowId = null;
-    
-    const API_URL = "https://script.google.com/macros/s/AKfycbxMf9lM6puEba0cwpjRZfN_sTjkLheYZROB_diuu448jJn6qWQ35NffkImFxgadNhq2/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbxMf9lM6puEba0cwpjRZfN_sTjkLheYZROB_diuu448jJn6qWQ35NffkImFxgadNhq2/exec";
 
-    function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
-    function formatTanggalIndo(tgl) {
-        if (!tgl) return "-";
-        const d = new Date(tgl);
-        return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
-    }
+        function formatRupiah(angka) { return "Rp " + Number(angka).toLocaleString("id-ID"); }
 
-    async function loginAdmin() {
-        console.log("SIMPAN DIKLIK");
-        const { value: pass } = await Swal.fire({ title: 'Akses Admin', input: 'password', showCancelButton: true });
-        if (pass === passwordAdmin) {
-            modeAdmin = true;
-            document.getElementById("panelAdmin").style.display = "block";
-            document.getElementById("areaLogin").style.display = "none";
-            refreshTabel();
-        } else if (pass) {
-            Swal.fire('Gagal', 'Password Salah', 'error');
+        function formatTanggalIndo(tgl) {
+            if (!tgl) return "-";
+            const d = new Date(tgl);
+            return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
         }
-    }
 
-    function logoutAdmin() {
-        modeAdmin = false;
-        document.getElementById("panelAdmin").style.display = "none";
-        document.getElementById("areaLogin").style.display = "block";
-        refreshTabel();
-    }
-
-    function loadData() {
-        fetch(API_URL).then(res => res.json()).then(data => {
-            semuaTransaksi = data;
-            refreshTabel();
-        }).catch(err => console.error("Error loading data:", err));
-    }
-
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-
-    async function simpanData() {
-    if (!modeAdmin) return;
-    
-    const fileInput = document.getElementById("buktiFile");
-    let base64Img = "";
-    
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        // Jika file > 1MB, kita beri peringatan (opsional) atau lanjut
-        base64Img = await toBase64(file);
-    }
-
-    const payload = {
-        tanggal: document.getElementById("tanggal").value,
-        jumlah: document.getElementById("jumlah").value,
-        jenis: document.getElementById("jenis").value,
-        keterangan: document.getElementById("keterangan").value,
-        bukti: base64Img, 
-        mode: isEditing ? "edit" : "insert",
-        row: editRowId
-    };
-
-    if(!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
-
-    Swal.fire({ title: 'Sedang Mengunggah...', text: 'Mohon tunggu sebentar, file sedang dikirim ke Drive', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
-
-    fetch(API_URL, { 
-        method: "POST", 
-        body: JSON.stringify(payload),
-        mode: 'no-cors' // Menghindari masalah CORS di beberapa browser
-    }).then(() => {
-        setTimeout(() => { // Memberi jeda agar server Google selesai memproses
-            resetForm(); 
-            loadData();
-            Swal.fire('Berhasil', 'Data dan Bukti telah disimpan', 'success');
-        }, 1500);
-    }).catch(err => {
-        Swal.fire('Error', 'Koneksi terputus, coba gunakan foto yang lebih kecil', 'error');
-    });
-}
-
-    function refreshTabel() {
-        const body = document.getElementById("bodyTabel");
-        const cari = document.getElementById("cariTransaksi").value.toLowerCase();
-        const periode = document.getElementById("filterPeriode").value;
-        const sekarang = new Date();
-        body.innerHTML = "";
-        let tMasuk = 0, tKeluar = 0;
-
-        let filtered = semuaTransaksi.filter(item => {
-            const tgl = new Date(item.tanggal);
-            let lolos = item.keterangan.toLowerCase().includes(cari);
-            if (periode === "BulanIni") lolos = lolos && (tgl.getMonth() === sekarang.getMonth() && tgl.getFullYear() === sekarang.getFullYear());
-            return lolos;
-        }).sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
-
-        filtered.forEach(item => {
-            // Nominal diambil dari data jumlah
-            const nominal = Number(item.jumlah); 
-            const isKeluar = item.jenis === "Pengeluaran";
-            if (isKeluar) tKeluar += nominal; else tMasuk += nominal;
-
-            const row = body.insertRow();
-            row.insertCell(0).innerText = formatTanggalIndo(item.tanggal);
-            row.insertCell(1).innerHTML = `<span style="font-weight:700; color:#0f172a;">${item.keterangan}</span>`;
-            
-            let bClass = isKeluar ? 'bg-keluar' : 'bg-masuk';
-            row.insertCell(2).innerHTML = `<div style="text-align:center;"><span class="badge ${bClass}">${item.jenis}</span></div>`;
-            row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(item.jumlah)}</div>`;
-            
-            const aksi = row.insertCell(4);
-aksi.style.textAlign = "center";
-
-if (modeAdmin) {
-    aksi.innerHTML = `
-        <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
-        <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
-    `;
-} else {
-    // Logika agar tombol muncul jika kolom F tidak kosong
-    if (item.bukti && item.bukti.toString().trim().length > 10) { 
-        aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
-    } else {
-        aksi.innerHTML = `<span style="color:#cbd5e1; font-size:11px;">Tidak ada bukti</span>`;
-    }
-}
-        });
-        document.getElementById("totalPemasukan").innerText = formatRupiah(tMasuk);
-        document.getElementById("totalPengeluaran").innerText = formatRupiah(tKeluar);
-        document.getElementById("saldo").innerText = formatRupiah(tMasuk - tKeluar);
-    }
-
-    function prepareEdit(rowId) {
-        const item = semuaTransaksi.find(t => t.row == rowId);
-        isEditing = true; editRowId = rowId;
-        document.getElementById("tanggal").value = new Date(item.tanggal).toISOString().split('T')[0];
-        document.getElementById("jumlah").value = item.jumlah;
-        document.getElementById("jenis").value = item.jenis;
-        document.getElementById("keterangan").value = item.keterangan;
-        document.getElementById("btnSimpan").innerText = "Update Data";
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function resetForm() { 
-        isEditing = false; 
-        editRowId = null; 
-        document.getElementById("btnSimpan").innerText = "Simpan Transaksi";
-        document.getElementById("buktiFile").value = "";
-        document.getElementById("jumlah").value = "";
-        document.getElementById("keterangan").value = "";
-    }
-
-    function hapusData(rowId) {
-        Swal.fire({ title: 'Hapus Data?', icon: 'warning', showCancelButton: true }).then(res => {
-            if (res.isConfirmed) {
-                Swal.showLoading();
-                fetch(API_URL, { method: "POST", body: JSON.stringify({ mode: "delete", row: rowId }) }).then(() => loadData());
+        async function loginAdmin() {
+            const { value: pass } = await Swal.fire({ title: 'Akses Admin', input: 'password', showCancelButton: true });
+            if (pass === passwordAdmin) {
+                modeAdmin = true;
+                document.getElementById("panelAdmin").style.display = "block";
+                document.getElementById("areaLogin").style.display = "none";
+                refreshTabel();
+            } else if (pass) {
+                Swal.fire('Gagal', 'Password Salah', 'error');
             }
-        });
-    }
+        }
 
-    window.onload = () => { 
-        loadData(); 
-        document.getElementById("tahun").innerText = new Date().getFullYear(); 
-        document.getElementById("waktuCetak").innerText = new Date().toLocaleString('id-ID'); 
-    };
-</script>
+        function logoutAdmin() {
+            modeAdmin = false;
+            document.getElementById("panelAdmin").style.display = "none";
+            document.getElementById("areaLogin").style.display = "block";
+            refreshTabel();
+        }
+
+        function loadData() {
+            fetch(API_URL).then(res => res.json()).then(data => {
+                semuaTransaksi = data;
+                refreshTabel();
+            }).catch(err => console.error("Error loading data:", err));
+        }
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        async function simpanData() {
+            if (!modeAdmin) return;
+
+            const fileInput = document.getElementById("buktiFile");
+            let base64Img = "";
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                base64Img = await toBase64(file);
+            }
+
+            const payload = {
+                tanggal: document.getElementById("tanggal").value,
+                jumlah: document.getElementById("jumlah").value,
+                jenis: document.getElementById("jenis").value,
+                keterangan: document.getElementById("keterangan").value,
+                bukti: base64Img,
+                mode: isEditing ? "edit" : "insert",
+                row: editRowId
+            };
+
+            if (!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
+
+            Swal.fire({ title: 'Sedang Mengunggah...', text: 'Mohon tunggu sebentar...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
+
+            fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                mode: 'no-cors'
+            }).then(() => {
+                setTimeout(() => {
+                    resetForm();
+                    loadData();
+                    Swal.fire('Berhasil', 'Data telah diproses', 'success');
+                }, 1500);
+            }).catch(err => {
+                Swal.fire('Error', 'Gagal menyimpan data', 'error');
+            });
+        }
+
+        function refreshTabel() {
+            const body = document.getElementById("bodyTabel");
+            const cari = document.getElementById("cariTransaksi").value.toLowerCase();
+            const periode = document.getElementById("filterPeriode").value;
+            const tahunPilih = document.getElementById("filterTahun").value;
+            const sekarang = new Date();
+            body.innerHTML = "";
+            let tMasuk = 0, tKeluar = 0;
+
+            let filtered = semuaTransaksi.filter(item => {
+                const tgl = new Date(item.tanggal.replace(/-/g, '/'));
+                let lolos = item.keterangan.toLowerCase().includes(cari);
+
+                if (tahunPilih !== "Semua") {
+                    lolos = lolos && (tgl.getFullYear().toString() === tahunPilih);
+                }
+
+                if (periode === "BulanIni") {
+                    lolos = lolos && (tgl.getMonth() === sekarang.getMonth() && tgl.getFullYear() === sekarang.getFullYear());
+                }
+
+                return lolos;
+            }).sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+
+            filtered.forEach(item => {
+                const nominal = Number(item.jumlah);
+                const isKeluar = item.jenis === "Pengeluaran";
+                if (isKeluar) tKeluar += nominal; else tMasuk += nominal;
+
+                const row = body.insertRow();
+                row.insertCell(0).innerText = formatTanggalIndo(item.tanggal);
+                row.insertCell(1).innerHTML = `<span style="font-weight:700; color:#0f172a;">${item.keterangan}</span>`;
+
+                let bClass = isKeluar ? 'bg-keluar' : 'bg-masuk';
+                row.insertCell(2).innerHTML = `<div style="text-align:center;"><span class="badge ${bClass}">${item.jenis}</span></div>`;
+                row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(item.jumlah)}</div>`;
+
+                const aksi = row.insertCell(4);
+                aksi.style.textAlign = "center";
+
+                if (modeAdmin) {
+                    aksi.innerHTML = `
+                        <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
+                        <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
+                    `;
+                } else {
+                    if (item.bukti && item.bukti.toString().trim().length > 10) {
+                        aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
+                    } else {
+                        aksi.innerHTML = `<span style="color:#cbd5e1; font-size:11px;">Tidak ada bukti</span>`;
+                    }
+                }
+            });
+
+            document.getElementById("totalPemasukan").innerText = formatRupiah(tMasuk);
+            document.getElementById("totalPengeluaran").innerText = formatRupiah(tKeluar);
+            document.getElementById("saldo").innerText = formatRupiah(tMasuk - tKeluar);
+        }
+
+        function prepareEdit(rowId) {
+            const item = semuaTransaksi.find(t => t.row == rowId);
+            isEditing = true;
+            editRowId = rowId;
+            document.getElementById("tanggal").value = new Date(item.tanggal).toISOString().split('T')[0];
+            document.getElementById("jumlah").value = item.jumlah;
+            document.getElementById("jenis").value = item.jenis;
+            document.getElementById("keterangan").value = item.keterangan;
+            document.getElementById("btnSimpan").innerText = "Update Data";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            isEditing = false;
+            editRowId = null;
+            document.getElementById("btnSimpan").innerText = "Simpan Transaksi";
+            document.getElementById("buktiFile").value = "";
+            document.getElementById("jumlah").value = "";
+            document.getElementById("keterangan").value = "";
+            document.getElementById("tanggal").value = "";
+        }
+
+        function hapusData(rowId) {
+            Swal.fire({ title: 'Hapus Data?', icon: 'warning', showCancelButton: true }).then(res => {
+                if (res.isConfirmed) {
+                    Swal.fire({ title: 'Menghapus...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
+                    fetch(API_URL, {
+                        method: "POST",
+                        body: JSON.stringify({ mode: "delete", row: rowId }),
+                        mode: 'no-cors'
+                    }).then(() => {
+                        setTimeout(() => {
+                            loadData();
+                            Swal.fire('Terhapus', 'Data telah dihapus', 'success');
+                        }, 1500);
+                    });
+                }
+            });
+        }
+
+        window.onload = () => {
+            loadData();
+            document.getElementById("tahun").innerText = new Date().getFullYear();
+            document.getElementById("waktuCetak").innerText = new Date().toLocaleString('id-ID');
+        };
+    </script>
 </body>
+
 </html>
