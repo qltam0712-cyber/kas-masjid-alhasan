@@ -353,7 +353,7 @@
             let tMasuk = 0, tKeluar = 0;
 
             let filtered = semuaTransaksi.filter(item => {
-                const tgl = new Date(item.tanggal.replace(/-/g, '/'));
+                const tgl = new Date(item.tanggal);
                 let lolos = item.keterangan.toLowerCase().includes(cari);
                 lolos = lolos && (tgl.getFullYear().toString() === tahunPilih);
                 return lolos;
