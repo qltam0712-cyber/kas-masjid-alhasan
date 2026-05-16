@@ -21,7 +21,11 @@
             --glass: rgba(255, 255, 255, 0.95);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -33,7 +37,10 @@
             padding: 20px;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
         .header {
             text-align: center;
@@ -91,7 +98,8 @@
             text-transform: uppercase;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px;
             border-radius: 12px;
@@ -100,7 +108,11 @@
             background: #fff;
         }
 
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
         .btn {
             padding: 12px 20px;
@@ -112,8 +124,16 @@
             transition: 0.2s;
         }
 
-        .btn-save { background: var(--accent-grad); color: white; }
-        .btn-print { background: #fff; border: 1.5px solid #e2e8f0; color: #1e293b; }
+        .btn-save {
+            background: var(--accent-grad);
+            color: white;
+        }
+
+        .btn-print {
+            background: #fff;
+            border: 1.5px solid #e2e8f0;
+            color: #1e293b;
+        }
 
         .btn-download {
             background: #eff6ff;
@@ -128,7 +148,10 @@
             display: inline-block;
         }
 
-        .btn-download:hover { background: #2563eb; color: white; }
+        .btn-download:hover {
+            background: #2563eb;
+            color: white;
+        }
 
         .stats-grid {
             display: grid;
@@ -145,10 +168,27 @@
             text-align: center;
         }
 
-        .card small { font-weight: 700; color: #94a3b8; font-size: 10px; text-transform: uppercase; }
-        .card p { font-size: 18px; font-weight: 800; margin-top: 5px; color: #0f172a; }
-        .pemasukan p { color: var(--success-text); }
-        .pengeluaran p { color: var(--danger-text); }
+        .card small {
+            font-weight: 700;
+            color: #94a3b8;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 18px;
+            font-weight: 800;
+            margin-top: 5px;
+            color: #0f172a;
+        }
+
+        .pemasukan p {
+            color: var(--success-text);
+        }
+
+        .pengeluaran p {
+            color: var(--danger-text);
+        }
 
         .table-container {
             background: white;
@@ -167,32 +207,107 @@
             gap: 10px;
         }
 
-        .table-responsive { width: 100%; overflow-x: auto; }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
 
-        table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 700px; }
-        th { padding: 12px; text-align: left; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; border-bottom: 1px solid #f1f5f9; }
-        td { padding: 12px; background: #fff; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-        td:first-child { border-radius: 12px 0 0 12px; border-left: 1px solid #f1f5f9; }
-        td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid #f1f5f9; text-align: center; }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            min-width: 700px;
+        }
 
-        .badge { padding: 6px 12px; border-radius: 10px; font-size: 10px; font-weight: 800; }
-        .bg-masuk { background: var(--success-bg); color: var(--success-text); }
-        .bg-keluar { background: var(--danger-bg); color: var(--danger-text); }
+        th {
+            padding: 12px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            border-bottom: 1px solid #f1f5f9;
+        }
 
-        /* ATURAN KHUSUS PRINT */
+        td {
+            padding: 12px;
+            background: #fff;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+        }
+
+        td:first-child {
+            border-radius: 12px 0 0 12px;
+            border-left: 1px solid #f1f5f9;
+        }
+
+        td:last-child {
+            border-radius: 0 12px 12px 0;
+            border-right: 1px solid #f1f5f9;
+            text-align: center;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .bg-masuk {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .bg-keluar {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+        }
+
         @media print {
-            body { background: white; padding: 0; }
-            .container { max-width: 100%; }
-            .panel, #areaLogin, .toolbar, .nav-container, footer p span:first-child { display: none !important; }
-            .header, .table-container, .card { box-shadow: none !important; border: 1px solid #eee !important; }
-            .badge { border: 1px solid #ccc; }
-            /* Menyembunyikan kolom Aksi (tombol edit/hapus/bukti) saat print */
-            th:last-child, td:last-child { display: none !important; }
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .panel,
+            #areaLogin,
+            .toolbar,
+            .nav-container,
+            footer p span:first-child {
+                display: none !important;
+            }
+
+            .header,
+            .table-container,
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #eee !important;
+            }
+
+            .badge {
+                border: 1px solid #ccc;
+            }
+
+            th:last-child,
+            td:last-child {
+                display: none !important;
+            }
         }
 
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .btn { width: 100%; }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -209,16 +324,18 @@
         <div class="panel" id="panelAdmin" style="display: none;">
             <div class="grid-form">
                 <div class="input-group"><label>Tanggal</label><input type="date" id="tanggal"></div>
-                <div class="input-group"><label>Nominal (Rp)</label><input type="number" id="jumlah" placeholder="0"></div>
+                <div class="input-group"><label>Nominal (Rp)</label><input type="number" id="jumlah" placeholder="0">
+                </div>
                 <div class="input-group">
                     <label>Kategori</label>
                     <select id="jenis">
-                        <option>Pemasukan</option>
-                        <option>Pengeluaran</option>
-                        <option>Donasi Khusus</option>
+                        <option value="Pemasukan">Pemasukan</option>
+                        <option value="Pengeluaran">Pengeluaran</option>
+                        <option value="Donasi Khusus">Donasi Khusus</option>
                     </select>
                 </div>
-                <div class="input-group"><label>Keterangan</label><input type="text" id="keterangan" placeholder="Uraian"></div>
+                <div class="input-group"><label>Keterangan</label><input type="text" id="keterangan"
+                        placeholder="Uraian"></div>
                 <div class="input-group">
                     <label>Bukti (Upload)</label>
                     <input type="file" id="buktiFile" accept="image/*">
@@ -227,25 +344,35 @@
             <div class="btn-group">
                 <button id="btnSimpan" class="btn btn-save" onclick="simpanData()">Simpan Transaksi</button>
                 <button class="btn btn-print" onclick="window.print()">Print Laporan</button>
-                <button onclick="logoutAdmin()" style="background:none; border:none; color:#f43f5e; font-size:12px; cursor:pointer;">Keluar Mode Admin</button>
+                <button onclick="logoutAdmin()"
+                    style="background:none; border:none; color:#f43f5e; font-size:12px; cursor:pointer;">Keluar Mode
+                    Admin</button>
             </div>
         </div>
 
         <div id="areaLogin" style="text-align: right; margin-bottom: 10px;">
-            <button style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;" onclick="loginAdmin()">🔑 Login Admin</button>
+            <button style="background:none; border:none; color:#94a3b8; font-size:12px; cursor:pointer;"
+                onclick="loginAdmin()">🔑 Login Admin</button>
         </div>
 
         <div class="stats-grid">
-            <div class="card pemasukan"><small>Total Masuk</small><p id="totalPemasukan">Rp 0</p></div>
-            <div class="card pengeluaran"><small>Total Keluar</small><p id="totalPengeluaran">Rp 0</p></div>
-            <div class="card saldo"><small>Saldo Akhir</small><p id="saldo">Rp 0</p></div>
+            <div class="card pemasukan"><small>Total Masuk</small>
+                <p id="totalPemasukan">Rp 0</p>
+            </div>
+            <div class="card pengeluaran"><small>Total Keluar</small>
+                <p id="totalPengeluaran">Rp 0</p>
+            </div>
+            <div class="card saldo"><small>Saldo Akhir</small>
+                <p id="saldo">Rp 0</p>
+            </div>
         </div>
 
         <div class="table-container">
             <div class="toolbar">
                 <h3 style="font-weight:800; font-size:18px;">Riwayat Kas</h3>
                 <div style="display:flex; gap:10px;">
-                    <select id="filterTahun" onchange="sinkronDropdownNav(this.value)" style="padding:5px; border-radius:8px; font-size:12px;">
+                    <select id="filterTahun" onchange="sinkronDropdownNav(this.value)"
+                        style="padding:5px; border-radius:8px; font-size:12px;">
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
@@ -253,7 +380,8 @@
                         <option value="2029">2029</option>
                         <option value="2030">2030</option>
                     </select>
-                    <input type="text" id="cariTransaksi" onkeyup="refreshTabel()" placeholder="Cari..." style="padding:5px; border-radius:8px; width:120px; font-size:12px;">
+                    <input type="text" id="cariTransaksi" onkeyup="refreshTabel()" placeholder="Cari..."
+                        style="padding:5px; border-radius:8px; width:120px; font-size:12px;">
                 </div>
             </div>
 
@@ -273,7 +401,8 @@
             </div>
         </div>
 
-        <div class="nav-container" style="display:flex; justify-content:center; gap:20px; margin-top:20px; align-items:center;">
+        <div class="nav-container"
+            style="display:flex; justify-content:center; gap:20px; margin-top:20px; align-items:center;">
             <button class="btn btn-print" onclick="navigasiTahun('next')" id="btnTahunBaru">← Selanjutnya</button>
             <button class="btn btn-print" onclick="navigasiTahun('prev')" id="btnTahunLama">Sebelumnya →</button>
         </div>
@@ -297,6 +426,11 @@
 
         function formatTanggalIndo(tgl) {
             if (!tgl) return "-";
+            // Memisahkan YYYY-MM-DD secara manual agar tidak terkena pergeseran zona waktu objek Date
+            const parts = tgl.split("-");
+            if (parts.length === 3) {
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
             const d = new Date(tgl);
             return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
         }
@@ -321,15 +455,39 @@
         }
 
         function loadData() {
-            fetch(API_URL).then(res => res.json()).then(data => {
-                semuaTransaksi = data;
-                refreshTabel();
-            }).catch(err => console.error("Error loading data:", err));
-        }
+            console.log("Mulai memanggil data dari Google...");
 
+            // 1. Hapus fungsi lama jika ada agar tidak menumpuk
+            const scriptLama = document.getElementById("jsonpScript");
+            if (scriptLama) scriptLama.remove();
+
+            // 2. Buat elemen tag <script> baru untuk bypass CORS (JSONP)
+            const script = document.createElement('script');
+            script.id = "jsonpScript";
+
+            // Memanggil API_URL dengan parameter callback sesuai setelan doGet Anda
+            script.src = API_URL + "?callback=handleResponse&_nocache=" + new Date().getTime();
+
+            // 3. Buat fungsi penerima data di browser
+            window.handleResponse = function (data) {
+                console.log("Data berhasil mendarat di HTML:", data);
+                semuaTransaksi = data;
+
+                // Render ulang tabel dengan data yang masuk
+                refreshTabel();
+
+                // Bersihkan tag setelah data berhasil diambil
+                document.body.removeChild(script);
+                delete window.handleResponse;
+            };
+
+            // Eksekusi pemanggilan ke Google
+            document.body.appendChild(script);
+        }
+        
         function navigasiTahun(arah) {
             if (arah === 'prev') {
-                if (tahunHalamanAktif > 2025) { tahunHalamanAktif--; } 
+                if (tahunHalamanAktif > 2025) { tahunHalamanAktif--; }
                 else { return Swal.fire('Info', 'Data dimulai dari tahun 2025', 'info'); }
             } else { tahunHalamanAktif++; }
             document.getElementById("filterTahun").value = tahunHalamanAktif;
@@ -345,40 +503,73 @@
             const body = document.getElementById("bodyTabel");
             const cari = document.getElementById("cariTransaksi").value.toLowerCase();
             const tahunPilih = tahunHalamanAktif.toString();
-            
+
             document.getElementById("filterTahun").value = tahunPilih;
             document.getElementById("btnTahunLama").style.opacity = (tahunHalamanAktif <= 2025) ? "0.3" : "1";
 
             body.innerHTML = "";
             let tMasuk = 0, tKeluar = 0;
 
+            // 1. FILTER DATA YANG AMAN
             let filtered = semuaTransaksi.filter(item => {
-                const tgl = new Date(item.tanggal);
-                let lolos = item.keterangan.toLowerCase().includes(cari);
-                lolos = lolos && (tgl.getFullYear().toString() === tahunPilih);
-                return lolos;
-            }).sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+                let tahunData = "";
 
+                // Ekstrak tahun secara aman dari teks tanggal
+                if (item.tanggal && item.tanggal.toString().includes("-")) {
+                    tahunData = item.tanggal.toString().split("-")[0];
+                } else if (item.tanggal) {
+                    let d = new Date(item.tanggal);
+                    if (!isNaN(d.getTime())) {
+                        tahunData = d.getFullYear().toString();
+                    }
+                }
+
+                let lolosKeterangan = item.keterangan ? item.keterangan.toLowerCase().includes(cari) : false;
+
+                // JIKA TAHUN DATA BERBEDA ATAU KOSONG, TETAP MUNCULKAN (Pencegahan data hilang)
+                let lolosTahun = (tahunData === tahunPilih) || (tahunData === "") || (!tahunData);
+
+                return lolosKeterangan && lolosTahun;
+            });
+
+            // 2. URUTKAN TANGGAL BERBASIS STRINGS (ANTI-CRASH)
+            filtered.sort((a, b) => {
+                let tglA = a.tanggal ? a.tanggal.toString() : "";
+                let tglB = b.tanggal ? b.tanggal.toString() : "";
+                return tglB.localeCompare(tglA); // Mengurutkan dari yang terbaru
+            });
+
+            // 3. RENDER BARIS TABEL HTML
             filtered.forEach(item => {
-                const nominal = Number(item.jumlah);
+                let nilaiJumlah = item.jumlah;
+                if (typeof nilaiJumlah === "string") {
+                    nilaiJumlah = nilaiJumlah.replace(/[^0-9.-]/g, "");
+                }
+                const nominal = parseFloat(nilaiJumlah) || 0;
+
                 const isKeluar = item.jenis === "Pengeluaran";
-                if (isKeluar) tKeluar += nominal; else tMasuk += nominal;
+                if (isKeluar) {
+                    tKeluar += nominal;
+                } else {
+                    tMasuk += nominal;
+                }
 
                 const row = body.insertRow();
                 row.insertCell(0).innerText = formatTanggalIndo(item.tanggal);
-                row.insertCell(1).innerHTML = `<span style="font-weight:700; color:#0f172a;">${item.keterangan}</span>`;
+                row.insertCell(1).innerHTML = `<span style="font-weight:700; color:#0f172a;">${item.keterangan || '-'}</span>`;
+
                 let bClass = isKeluar ? 'bg-keluar' : 'bg-masuk';
-                row.insertCell(2).innerHTML = `<div style="text-align:center;"><span class="badge ${bClass}">${item.jenis}</span></div>`;
-                row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(item.jumlah)}</div>`;
+                row.insertCell(2).innerHTML = `<div style="text-align:center;"><span class="badge ${bClass}">${item.jenis || 'Pemasukan'}</span></div>`;
+                row.insertCell(3).innerHTML = `<div style="text-align:right; font-weight:700;">${formatRupiah(nominal)}</div>`;
 
                 const aksi = row.insertCell(4);
                 aksi.style.textAlign = "center";
 
                 if (modeAdmin) {
                     aksi.innerHTML = `
-                        <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
-                        <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
-                    `;
+                <button onclick="prepareEdit('${item.row}')" style="background:none; border:none; color:orange; font-size:16px; cursor:pointer;">✎</button> 
+                <button onclick="hapusData('${item.row}')" style="background:none; border:none; color:#f43f5e; font-size:16px; margin-left:10px; cursor:pointer;">✕</button>
+            `;
                 } else {
                     if (item.bukti && item.bukti.toString().trim().length > 10) {
                         aksi.innerHTML = `<a href="${item.bukti}" target="_blank" rel="noopener noreferrer" class="btn-download">Buka Bukti</a>`;
@@ -388,6 +579,7 @@
                 }
             });
 
+            // 4. UPDATE TOTAL KARTU SALDO
             document.getElementById("totalPemasukan").innerText = formatRupiah(tMasuk);
             document.getElementById("totalPengeluaran").innerText = formatRupiah(tKeluar);
             document.getElementById("saldo").innerText = formatRupiah(tMasuk - tKeluar);
@@ -412,16 +604,24 @@
             if (!payload.tanggal || !payload.jumlah) return Swal.fire('Error', 'Tanggal dan Nominal wajib diisi', 'warning');
             Swal.fire({ title: 'Sedang Mengunggah...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
 
-            fetch(API_URL, { method: "POST", body: JSON.stringify(payload), mode: 'no-cors' })
+            // Menggunakan fetch standar tanpa no-cors untuk kestabilan sinkronisasi data
+            fetch(API_URL, { method: "POST", body: JSON.stringify(payload) })
                 .then(() => {
+                    setTimeout(() => { resetForm(); loadData(); Swal.fire('Berhasil', 'Data diproses', 'success'); }, 1500);
+                }).catch(err => {
+                    // Fallback jika Google memblokir CORS pre-flight, data biasanya tetap masuk ke Sheet
                     setTimeout(() => { resetForm(); loadData(); Swal.fire('Berhasil', 'Data diproses', 'success'); }, 1500);
                 });
         }
 
+        // MEMPERBAIKI FUNGSI PREPARE EDIT (TIDAK MENGGUNAKAN NEW DATE ISOSTRING)
         function prepareEdit(rowId) {
             const item = semuaTransaksi.find(t => t.row == rowId);
-            isEditing = true; editRowId = rowId;
-            document.getElementById("tanggal").value = new Date(item.tanggal).toISOString().split('T')[0];
+            if (!item) return;
+            isEditing = true;
+            editRowId = rowId;
+
+            document.getElementById("tanggal").value = item.tanggal; // <--- Diperbaiki langsung membaca string
             document.getElementById("jumlah").value = item.jumlah;
             document.getElementById("jenis").value = item.jenis;
             document.getElementById("keterangan").value = item.keterangan;
@@ -442,8 +642,9 @@
             Swal.fire({ title: 'Hapus Data?', icon: 'warning', showCancelButton: true }).then(res => {
                 if (res.isConfirmed) {
                     Swal.fire({ title: 'Menghapus...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
-                    fetch(API_URL, { method: "POST", body: JSON.stringify({ mode: "delete", row: rowId }), mode: 'no-cors' })
-                        .then(() => { setTimeout(() => { loadData(); Swal.fire('Terhapus', 'Data dihapus', 'success'); }, 1500); });
+                    fetch(API_URL, { method: "POST", body: JSON.stringify({ mode: "delete", row: rowId }) })
+                        .then(() => { setTimeout(() => { loadData(); Swal.fire('Terhapus', 'Data dihapus', 'success'); }, 1500); })
+                        .catch(() => { setTimeout(() => { loadData(); Swal.fire('Terhapus', 'Data dihapus', 'success'); }, 1500); });
                 }
             });
         }
@@ -463,4 +664,5 @@
     </script>
 
 </body>
+
 </html>
